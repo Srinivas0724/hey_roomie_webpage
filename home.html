@@ -12,16 +12,25 @@
 <body>
 
     <header>
-        <nav class="nav-left">
-            <a href="#">Find Rooms</a>
-            <a href="#">List Property</a>
-            <a href="#">About</a>
-        </nav>
-        <img src="webpage_image/logo.jpg" alt="HeyRoomie Logo" class="logo">
-        <nav class="nav-right">
-            <a href="#">Blog</a>
-            <a href="#">Support</a>
-        </nav>
+        <div class="nav-container">
+            <img src="webpage_image/logo.jpg" alt="HeyRoomie Logo" class="logo">
+            <nav class="main-nav">
+                <a href="#">Find Rooms</a>
+                <a href="#">List Property</a>
+                <a href="#">About</a>
+                <a href="#">Blog</a>
+            </nav>
+            <div class="controls-container">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="sun-icon">☀️</span>
+                    <span class="moon-icon">🌙</span>
+                </button>
+                <div class="user-actions">
+                    <a href="#" class="btn-login">Log In</a>
+                    <a href="#" class="btn-signup">Sign Up</a>
+                </div>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -32,30 +41,115 @@
             </div>
         </section>
 
-        <section class="philosophy-section">
-            <div class="philosophy-left">
-                <h2>Home is where<br><span class="text-orange">connections</span><br>grow.</h2>
-            </div>
-            <div class="philosophy-right">
-                <p class="section-subtitle">Our Philosophy</p>
-                <p>Hey Roomie transforms the way people find housing and build communities. We believe that finding the right roommate shouldn't be stressful—it should be an exciting journey toward creating your ideal living situation with people who truly complement your lifestyle.</p>
-                <button class="gradient-button">Start Your Journey</button>
+        <section class="philosophy-section revealable">
+            <div class="philosophy-content">
+                <div class="philosophy-left">
+                    <p class="section-subtitle">Our Philosophy</p>
+                    <h2>Home is where<br><span class="text-orange">connections</span> grow.</h2>
+                </div>
+                <div class="philosophy-right">
+                    <p>Hey Roomie transforms the way people find housing and build communities. We believe that finding the right roommate shouldn't be stressful—it should be an exciting journey toward creating your ideal living situation with people who truly complement your lifestyle.</p>
+                </div>
             </div>
         </section>
 
-        <section class="research-section">
-            <div class="research-left">
-                <!-- The image has been replaced with the logo -->
-                <img src="webpage_image/phone_logo.png" alt="HeyRoomie Logo" class="phone-image-box" />
+        <section class="how-it-works-section revealable">
+            <h2>How It Works</h2>
+            <div class="steps-container">
+                <div class="step-card revealable">
+                    <div class="icon-placeholder">👤</div>
+                    <h3>1. Create Your Profile</h3>
+                    <p>Showcase your personality and what you're looking for in a roommate and a home.</p>
+                </div>
+                <div class="step-card revealable">
+                    <div class="icon-placeholder">🔍</div>
+                    <h3>2. Discover Matches</h3>
+                    <p>Browse our curated listings and compatible roommate profiles based on your preferences.</p>
+                </div>
+                <div class="step-card revealable">
+                    <div class="icon-placeholder">💬</div>
+                    <h3>3. Connect Safely</h3>
+                    <p>Chat with potential roommates through our secure platform to find the perfect fit.</p>
+                </div>
             </div>
-            <div class="research-right">
-                <p class="section-subtitle-orange">Search On The Go</p>
-                <h2>Find your home,<br><span class="text-orange">anytime.</span></h2>
-                <p>Our team puts the power of search in your pocket. Get instant alerts for new listings, filter results to match your lifestyle, and connect with roommates, all from the convenience of your phone.</p>
+        </section>
+
+        <section class="research-section revealable">
+            <div class="research-content">
+                <div class="research-left">
+                     <img src="webpage_image/phone_logo.png" alt="HeyRoomie mobile app on a phone" class="phone-image-box" />
+                </div>
+                <div class="research-right">
+                    <p class="section-subtitle-orange">Search On The Go</p>
+                    <h2>Find your home,<br><span class="text-orange">anytime.</span></h2>
+                    <p>Our team puts the power of search in your pocket. Get instant alerts for new listings, filter results to match your lifestyle, and connect with roommates, all from the convenience of your phone.</p>
+                </div>
             </div>
+        </section>
+
+        <section class="final-cta-section revealable">
+            <h2>Start your journey with HeyRoomie today.</h2>
+            <button class="gradient-button">Get Started</button>
         </section>
     </main>
 
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>HeyRoomie</h4>
+                <a href="#">About Us</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <a href="#">Help Center</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Safety Tips</a>
+            </div>
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 HeyRoomie. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Combined script for all functionalities ---
+
+        // 1. Scroll Animations
+        const revealables = document.querySelectorAll('.revealable');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        revealables.forEach(el => observer.observe(el));
+
+
+        // 2. Dark Mode Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme');
+
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+        }
+
+        themeToggle.addEventListener('click', () => {
+            let currentTheme = document.documentElement.getAttribute('data-theme');
+            let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
+
 </body>
 </html>
-
