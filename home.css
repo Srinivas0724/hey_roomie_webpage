@@ -1,3 +1,34 @@
+
+:root {
+    --primary-teal: #007a8a;
+    --accent-orange: #f08a5d;
+    --gradient: linear-gradient(90deg, #00A7B5, #FF8A5B);
+    --font-family: 'Montserrat', sans-serif;
+
+    /* Light Theme (Default) */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-accent: #004751;
+    --text-primary: #333;
+    --text-secondary: #555;
+    --text-inverted: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0,0,0,0.05);
+}
+
+/* Dark Theme Variables */
+[data-theme='dark'] {
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --bg-accent: #004751;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --text-inverted: #ffffff;
+    --border-color: #333333;
+    --shadow-color: rgba(0,0,0,0.2);
+}
+
+
 /* General Setup & Body */
 * {
     margin: 0;
@@ -5,67 +36,162 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Montserrat', sans-serif;
-    color: #333;
+    font-family: var(--font-family);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     overflow-x: hidden;
+    /* TECHNICAL IMPROVEMENT: Smooth transition for theme changes */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Header Styling */
 header {
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 5%;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-container {
+    width: 100%;
+    max-width: 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 5%;
-    height: 90px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.nav-left, .nav-right {
-    flex: 1;
-}
-
-.nav-right {
-    display: flex;
-    justify-content: flex-end;
 }
 
 .logo {
-    height: 75px;
+    height: 65px;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.main-nav {
+    display: flex;
+    gap: 30px;
 }
 
 nav a {
     text-decoration: none;
-    color: #555;
+    color: var(--text-secondary);
     font-weight: 600;
-    margin: 0 20px;
     font-size: 16px;
     transition: color 0.3s;
 }
 
 nav a:hover {
-    color: #007a8a;
+    color: var(--primary-teal);
 }
 
-/* Section 1: Hero Section */
+.controls-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+}
+
+.user-actions a {
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.btn-login {
+    color: var(--primary-teal);
+}
+
+.btn-login:hover {
+    background-color: var(--primary-teal);
+    color: var(--bg-primary);
+}
+
+.btn-signup {
+    background-color: var(--primary-teal);
+    color: var(--white);
+}
+
+.btn-signup:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+/* VISUAL POLISH: Theme Toggle Button Styles */
+.theme-toggle {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    cursor: pointer;
+    width: 50px;
+    height: 26px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+.theme-toggle::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: var(--text-secondary);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+[data-theme='dark'] .theme-toggle::before {
+    transform: translateX(23px);
+}
+.theme-toggle .sun-icon, .theme-toggle .moon-icon { font-size: 14px; }
+.moon-icon { display: none; }
+[data-theme='dark'] .moon-icon { display: inline; }
+[data-theme='dark'] .sun-icon { display: none; }
+
+
+/* Hero Section */
 .hero-section {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     height: 600px;
-    color: white;
-    background-image: linear-gradient(rgba(0, 71, 81, 0.7), rgba(0, 71, 81, 0.7)), url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600');
+    color: #FFFFFF; 
+    background-image: linear-gradient(rgba(0, 50, 57, 0.8), rgba(0, 50, 57, 0.8)), url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600');
     background-size: cover;
     background-position: center;
 }
+
 
 .hero-content h1 {
     font-size: 4.5rem;
     font-weight: 800;
     line-height: 1.1;
+    
 }
+
 
 .gradient-text {
     background: linear-gradient(90deg, #00A7B5, #FF8A5B);
@@ -73,109 +199,291 @@ nav a:hover {
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
 .hero-content p {
     font-size: 1.2rem;
     margin-top: 20px;
     max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+/* Universal Section Styling */
+section {
+    padding: 100px 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: background-color 0.3s ease;
 }
 
-/* Section 2: Philosophy Section */
+.section-subtitle {
+    font-weight: 600;
+    color: var(--primary-teal);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.section-subtitle-orange {
+    color: var(--accent-orange);
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+/* Philosophy Section */
 .philosophy-section {
+    background-color: var(--bg-secondary);
+}
+.philosophy-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5%;
-    padding: 100px 5%;
-    background-color: #f8f9fa;
+    gap: 8%;
+    max-width: 1100px;
 }
 
+.philosophy-left { flex-basis: 50%; }
+.philosophy-right { flex-basis: 50%; max-width: 500px; }
+
 .philosophy-left h2 {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 700;
-    color: #004751;
+    color: var(--text-primary);
     line-height: 1.2;
 }
 
 .text-orange {
-    color: #f08a5d;
-}
-
-.philosophy-right {
-    max-width: 500px;
-}
-
-.philosophy-right .section-subtitle {
-    font-weight: 600;
-    color: #007a8a;
-    margin-bottom: 15px;
+    color: var(--accent-orange);
 }
 
 .philosophy-right p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+/* How It Works Section */
+.how-it-works-section h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.steps-container {
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.step-card {
+    background-color: var(--bg-primary);
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px var(--shadow-color);
+}
+
+/* VISUAL POLISH: Icon Placeholder Styles */
+.icon-placeholder {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    line-height: 1;
+}
+
+.step-card h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+.step-card p {
     font-size: 1rem;
     line-height: 1.6;
-    margin-bottom: 30px;
-    color: #555;
+    color: var(--text-secondary);
 }
 
-.gradient-button {
-    padding: 15px 35px;
-    border: none;
-    border-radius: 50px;
-    background: linear-gradient(90deg, #00A7B5, #f08a5d);
-    color: white;
-    font-weight: 700;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.gradient-button:hover {
-    transform: scale(1.05);
-}
-
-/* Section 3: Research Section */
+/* Research (Mobile) Section */
 .research-section {
+    background-color: var(--bg-accent);
+    color: var(--text-inverted);
+}
+
+.research-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 100px 5%;
-    background-color: #004751; /* Dark teal background */
-    color: white;
-    gap: 8%; /* Increased gap for spacing */
+    gap: 8%;
+    max-width: 1100px;
 }
 
 .research-left {
     flex-basis: 40%;
-    max-width: 300px; /* MODIFIED: Reduced from 400px to make the logo smaller */
+    max-width: 300px;
 }
 
 .phone-image-box {
     width: 100%;
-    border-radius: 20px; /* Gives the image rounded corners */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-radius: 20px;
 }
 
 .research-right {
-    flex-basis: 50%;
+    flex-basis: 60%;
     max-width: 550px;
 }
 
 .research-right h2 {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 20px;
 }
 
-.section-subtitle-orange {
-    color: #f08a5d;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
 .research-right p {
     font-size: 1.1rem;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
+/* Final CTA Section */
+.final-cta-section {
+    background-color: var(--bg-secondary);
+    text-align: center;
+}
+
+.final-cta-section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 30px;
+    max-width: 600px;
+}
+
+.gradient-button {
+    padding: 18px 40px;
+    border: none;
+    border-radius: 50px;
+    background: var(--gradient);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gradient-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 122, 138, 0.2);
+}
+
+/* Footer Styling */
+footer {
+    background-color: var(--bg-accent);
+    color: #a0b4b7;
+    padding: 60px 5% 20px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #005f6b;
+}
+
+.footer-column h4 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: var(--white);
+}
+
+.footer-column a {
+    display: block;
+    color: #a0b4b7;
+    text-decoration: none;
+    margin-bottom: 12px;
+    transition: color 0.3s;
+}
+
+.footer-column a:hover {
+    color: var(--accent-orange);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.9rem;
+}
+
+/* Scroll Animation Classes */
+.revealable {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.revealable.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.step-card:nth-child(2) { transition-delay: 0.2s; }
+.step-card:nth-child(3) { transition-delay: 0.4s; }
+
+
+/* --- TECHNICAL IMPROVEMENT: Mobile Responsiveness --- */
+
+/* Tablet view */
+@media (max-width: 992px) {
+    .main-nav {
+        display: none; 
+    }
+    .philosophy-content, .research-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .philosophy-left, .philosophy-right, .research-left, .research-right {
+        flex-basis: 100%;
+        max-width: 600px;
+    }
+    .research-left {
+        margin-bottom: 40px;
+    }
+    .steps-container {
+        flex-direction: column;
+    }
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+    section {
+        padding: 80px 5%;
+    }
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+    .philosophy-left h2, .research-right h2 {
+        font-size: 2.5rem;
+    }
+    .final-cta-section h2 {
+        font-size: 2rem;
+    }
+    .controls-container {
+        display: none; 
+    }
+}
